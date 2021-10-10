@@ -1,5 +1,5 @@
-import styles from '../../styles/Home.module.css'
 import { useRef, useState } from "react"
+import styles from '../../styles/Home.module.css'
 
 export default function Shortener() {
   const inputRef = useRef()

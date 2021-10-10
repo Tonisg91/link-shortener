@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, getDocs, setDoc, getDoc, doc } from 'firebase/firestore/lite'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU",
@@ -11,21 +10,4 @@ const firebaseConfig = {
   measurementId: "G-4H7CYGPW7V"
 }
 
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
-
-export const getLink = async (shortUrl) => {
-  const docRef = doc(db, 'links', shortUrl)
-  const docSnap = await getDoc(docRef)
-
-  if (docSnap.exists()) {
-    return docSnap.data()
-  }
-
-  return null
-}
-
-export const addLink = async (linkInstance) => {
-  const linkDoc = doc(db, 'links', linkInstance.shortUrl)
-  await setDoc(linkDoc, { ...linkInstance })
-}
+export const app = initializeApp(firebaseConfig)

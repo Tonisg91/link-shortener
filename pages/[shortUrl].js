@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getLink } from "../firebase/client"
+import Firestore from "../firebase/Firestore"
 
 export default function LinkPage({ url }) {
   const [seconds, setSeconds] = useState(5)
@@ -25,7 +25,7 @@ export default function LinkPage({ url }) {
 
 export async function getServerSideProps({ params }) {
   const { shortUrl } = params
-  const data = await getLink(shortUrl)
+  const data = await Firestore.getLink(shortUrl)
 
   if (!data) {
     // TODO: Return to Error page

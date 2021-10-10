@@ -1,9 +1,22 @@
 import Head from 'next/head'
+import Image from 'next/image'
+
+import useAuth from '../hooks/useAuth'
 import Shortener from '../components/Forms/Shortener'
+import { firebaseAuth, loginWithGoogle } from '../firebase/Auth'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const { user, loading } = useAuth()
 
+
+  const handleClick = ({target}) => {
+    firebaseAuth(target.name).then(data => {
+      setUser(data.user)
+      setIsAuth(true)
+    })
+    .catch(err => console.log(err))
+  }
 
   return (
     <div className={styles.container}>
@@ -19,7 +32,12 @@ export default function Home() {
         </h1>
 
         <div className={styles.grid}>
-          <Shortener />
+          {user ? <Shortener /> : null}
+          {user &&  <Image src={user.photoURL} alt="avatar" width={50} height={50} className={styles.avatar} /> }
+        </div>
+        <div className={styles.grid}>
+          <button onClick={handleClick} name="Google" >LOGIN WITH GOOGLE</button>
+          <button onClick={handleClick} name="Facebook">LOGIN WITH FACEBOOK</button>
         </div>
 
       </main>
