@@ -1,10 +1,11 @@
-import AuthContextProvider from '../context/AuthContext'
+import initAuth from '../initAuth'
+
 import '../styles/globals.css'
 
+initAuth()
+
 function MyApp({ Component, pageProps }) {
-  return <AuthContextProvider>
-    <Component {...pageProps} />
-  </AuthContextProvider>
+  return <Component {...pageProps} />
 }
 
 export default MyApp

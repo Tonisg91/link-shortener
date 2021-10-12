@@ -1,25 +1,22 @@
 import Head from 'next/head'
 import classnames from 'classnames'
 
-// import useAuth from '../hooks/useAuth'
-// import { firebaseAuth } from '../firebase/Auth'
 import styles from '../styles/Home.module.css'
 import cardStyle from '../styles/Card.module.css'
 
 import Icon from '@mdi/react'
 import { mdiLinkVariant } from '@mdi/js'
-import AuthButton from '../components/Common/AuthButton'
 
-export default function Home() {
-  // const handleClick = ({ target }) => {
-  //   firebaseAuth(target.name)
-  //     .then((data) => {
-  //       login(data.user)
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
+import {
+  useAuthUser,
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction
+} from 'next-firebase-auth'
+import GetStartedButton from '../components/Common/GetStartedButton'
 
-  const handleClick = () => {}
+function Home() {
+  const AuthUser = useAuthUser()
 
   return (
     <div className={styles.container}>
@@ -32,17 +29,24 @@ export default function Home() {
       <main className={styles.main}>
         <div className={cardStyle.wrap}>
           <div className={classnames(cardStyle.cardHeader, cardStyle.gradient)}>
-            <Icon path={mdiLinkVariant} size={2} color="#fff" />
+            <Icon path={mdiLinkVariant} size={3} color="#fff" />
           </div>
           <div className={cardStyle.cardContent}>
             <h1 className={cardStyle.cardTitle}>URL Shortener</h1>
             <p className={cardStyle.cardText}>
               Simple and effective free url shortener.
             </p>
-            <AuthButton text="Google" handleClick={handleClick} />
+            <GetStartedButton />
           </div>
         </div>
       </main>
     </div>
   )
 }
+
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.RENDER
+  // whenAuthed: AuthAction.REDIRECT_TO_APP
+})()
+
+export default withAuthUser()(Home)

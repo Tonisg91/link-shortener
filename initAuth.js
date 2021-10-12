@@ -3,30 +3,24 @@ import { init } from 'next-firebase-auth'
 const initAuth = () => {
   init({
     authPageURL: '/auth',
-    appPageURL: '/',
+    appPageURL: '/dashboard',
     loginAPIEndpoint: '/api/login', // required
     logoutAPIEndpoint: '/api/logout', // required
-    firebaseAuthEmulatorHost: 'localhost:9099',
-    // Required in most cases.
     firebaseAdminInitConfig: {
       credential: {
         projectId: 'url-shortener-2b352',
-        clientEmail: 'example-abc123@my-example-app.iam.gserviceaccount.com',
-        // The private key must not be accesssible on the client side.
+        clientEmail:
+          'firebase-adminsdk-ticb9@url-shortener-2b352.iam.gserviceaccount.com',
         privateKey: process.env.FIREBASE_PRIVATE_KEY
-      },
-      databaseURL: 'https://my-example-app.firebaseio.com'
+      }
     },
     firebaseClientInitConfig: {
-      apiKey: 'MyExampleAppAPIKey123', // required
-      authDomain: 'my-example-app.firebaseapp.com',
-      databaseURL: 'https://my-example-app.firebaseio.com',
-      projectId: 'my-example-app-id'
+      apiKey: 'AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU', // required
+      authDomain: 'url-shortener-2b352.firebaseapp.com',
+      projectId: 'url-shortener-2b352'
     },
     cookies: {
-      name: 'ExampleApp', // required
-      // Keys are required unless you set `signed` to `false`.
-      // The keys cannot be accessible on the client side.
+      name: '@urlShortener', // required
       keys: [
         process.env.COOKIE_SECRET_CURRENT,
         process.env.COOKIE_SECRET_PREVIOUS
