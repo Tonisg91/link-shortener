@@ -11,16 +11,15 @@ import { mdiLinkVariant } from '@mdi/js'
 import AuthButton from '../components/Common/AuthButton'
 
 export default function Home() {
-  // const { user, loading } = useAuth()
-
   // const handleClick = ({ target }) => {
   //   firebaseAuth(target.name)
   //     .then((data) => {
-  //       setUser(data.user)
-  //       setIsAuth(true)
+  //       login(data.user)
   //     })
   //     .catch((err) => console.log(err))
   // }
+
+  const handleClick = () => {}
 
   return (
     <div className={styles.container}>
@@ -40,7 +39,7 @@ export default function Home() {
             <p className={cardStyle.cardText}>
               Simple and effective free url shortener.
             </p>
-            <AuthButton text="youtube" />
+            <AuthButton text="Google" handleClick={handleClick} />
           </div>
         </div>
       </main>

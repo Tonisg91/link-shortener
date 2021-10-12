@@ -1,8 +1,14 @@
-import { GoogleAuthProvider, signInWithPopup, getAuth, onAuthStateChanged, FacebookAuthProvider  } from 'firebase/auth'
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAuth,
+  onAuthStateChanged,
+  FacebookAuthProvider
+} from 'firebase/auth'
 import { app } from './client'
 
-const auth = getAuth(app)
-auth.languageCode= 'en'
+export const auth = getAuth(app)
+auth.languageCode = 'en'
 
 export const firebaseAuth = (method) => {
   switch (method) {
@@ -17,7 +23,7 @@ export const firebaseAuth = (method) => {
 
 export const loginWithFacebook = () => {
   const facebookAuthProvider = new FacebookAuthProvider()
-  return signInWithPopup(auth,facebookAuthProvider)
+  return signInWithPopup(auth, facebookAuthProvider)
 }
 
 export const loginWithGoogle = () => {

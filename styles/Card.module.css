@@ -35,16 +35,6 @@
   );
 }
 
-.btnGradient {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    156deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 10%,
-    rgba(0, 212, 255, 1) 73%
-  );
-}
-
 .cardHeader i {
   color: #fff;
   font-size: 72px;
@@ -68,30 +58,10 @@
   font-size: 12px;
   margin-bottom: 20px;
 }
-.cardBtn {
-  border: none;
-  border-radius: 100px;
-  padding: 5px 30px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.8em;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-}
 
 .cardHeaderOne {
   background: linear-gradient(
     to bottom left,
-    var(--card1-gradient-color1),
-    var(--card1-gradient-color2)
-  );
-}
-
-.cardBtnOne {
-  background: linear-gradient(
-    to left,
     var(--card1-gradient-color1),
     var(--card1-gradient-color2)
   );

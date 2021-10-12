@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types'
-
+import propTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
-import classNames from 'classnames'
 
-import styles from '../../styles/Card.module.css'
+import styles from '../../styles/Common.module.css'
 
-function AuthButton({ text }) {
+function AuthButton({ text, handleClick }) {
   const iconHM = {
     Google: mdiGoogle,
     Facebook: mdiFacebook,
@@ -14,8 +12,8 @@ function AuthButton({ text }) {
   }
 
   return (
-    <div className={classNames(styles.cardBtn, styles.btnGradient)}>
-      <small>Login with {text}</small>
+    <div className={styles.authBtn} onClick={handleClick} name={text}>
+      <p>Login with {text}</p>
       <Icon path={iconHM[text]} size={1} />
     </div>
   )
@@ -34,7 +32,8 @@ AuthButton.propTypes = {
         'text prop only accept one of these values => ' + allowedProps
       )
     }
-  }
+  },
+  handleClick: propTypes.func.isRequired
 }
 
 export default AuthButton

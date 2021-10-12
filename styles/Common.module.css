@@ -1,0 +1,23 @@
+.authBtn {
+  border: none;
+  border-radius: 100px;
+  padding: 5px 30px;
+  color: #fff;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    156deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 10%,
+    rgba(0, 212, 255, 1) 73%
+  );
+}
+.authBtn p {
+  margin: 0;
+  font-size: 0.75em;
+  font-weight: 600;
+  margin-right: 0.6em;
+}
