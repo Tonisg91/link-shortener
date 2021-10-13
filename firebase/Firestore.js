@@ -1,4 +1,13 @@
-import { getFirestore, doc, setDoc, getDocs, getDoc, collection } from 'firebase/firestore/lite'
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+  collection,
+  query,
+  where
+} from 'firebase/firestore/lite'
 import { app } from './client'
 
 class Firestore {
@@ -7,10 +16,12 @@ class Firestore {
     this.currentLink = undefined
   }
 
-  async getLinks() {
+  async getUserLinks(userId) {
     const linksCol = collection(this.db, 'links')
-    const linkSnapshot = await getDocs(linksCol)
-    const linkList = linkSnapshot.docs.map(doc => doc.data())
+    const linksQuery = query(linksCol, where('createdBy', '==', userId))
+
+    const linkSnapshot = await getDocs(linksQuery)
+    const linkList = linkSnapshot.docs.map((doc) => doc.data())
     return linkList
   }
 
@@ -35,7 +46,7 @@ class Firestore {
   async incrementClickCounter(linkInstance) {
     const { counter, shortUrl } = linkInstance
     const linkDoc = doc(this.db, 'links', shortUrl)
-    await setDoc(linkDoc, { ...linkInstance, counter: counter + 1})
+    await setDoc(linkDoc, { ...linkInstance, counter: counter + 1 })
   }
 }
 
