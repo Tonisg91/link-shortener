@@ -8,12 +8,14 @@ import {
   query,
   where
 } from 'firebase/firestore/lite'
-import { app } from './client'
 
 class Firestore {
   constructor() {
-    this.db = getFirestore(app)
-    this.currentLink = undefined
+    this.db = getFirestore()
+  }
+
+  serialize(data) {
+    return JSON.parse(JSON.stringify(data))
   }
 
   async getUserLinks(userId) {
@@ -22,7 +24,7 @@ class Firestore {
 
     const linkSnapshot = await getDocs(linksQuery)
     const linkList = linkSnapshot.docs.map((doc) => doc.data())
-    return linkList
+    return this.serialize(linkList)
   }
 
   async getLink(shortUrl) {
@@ -36,11 +38,6 @@ class Firestore {
     }
 
     return null
-  }
-
-  async addLink(linkInstance) {
-    const linkDoc = doc(this.db, 'links', linkInstance.shortUrl)
-    await setDoc(linkDoc, { ...linkInstance })
   }
 
   async incrementClickCounter(linkInstance) {

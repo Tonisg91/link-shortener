@@ -17,7 +17,6 @@ import GetStartedButton from '../components/Common/GetStartedButton'
 
 function Home() {
   const AuthUser = useAuthUser()
-  console.log(AuthUser)
 
   return (
     <div className={styles.container}>

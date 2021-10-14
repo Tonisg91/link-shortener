@@ -12,7 +12,7 @@ class Link {
 
   async storeLink() {
     const linkDoc = doc(db, 'links', this.shortUrl)
-    console.log(this)
+
     await setDoc(linkDoc, { ...this })
   }
 }

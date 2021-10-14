@@ -20,6 +20,7 @@ export default function Shortener() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setShortUrl(data.shortUrl)
       })
   }
