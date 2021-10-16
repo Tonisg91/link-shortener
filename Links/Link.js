@@ -2,9 +2,10 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore'
 
 const db = getFirestore()
 class Link {
-  constructor({ url, createdBy }) {
+  constructor({ url, name, createdBy }) {
     this.shortUrl = Math.random().toString(36).substr(2, 5)
     this.url = url
+    this.name = name
     this.counter = 0
     this.createdAt = new Date()
     this.createdBy = createdBy

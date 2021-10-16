@@ -55,11 +55,3 @@
   font-size: 12px;
   margin-bottom: 20px;
 }
-
-.cardHeaderOne {
-  background: linear-gradient(
-    to bottom left,
-    var(--card1-gradient-color1),
-    var(--card1-gradient-color2)
-  );
-}

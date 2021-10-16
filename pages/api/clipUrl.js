@@ -2,10 +2,8 @@
 import Link from '../../Links/Link'
 
 export default async function clipUrl(req, res) {
-  const { url, createdBy } = req.body
-
-  const newLink = new Link({ url, createdBy })
+  const newLink = new Link({ ...req.body })
   await newLink.storeLink()
 
-  res.status(200).send(newLink)
+  res.status(200).send([])
 }

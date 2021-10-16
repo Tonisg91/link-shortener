@@ -11,17 +11,25 @@ import Firestore from '../firebase/Firestore'
 
 import mainStyles from '../styles/Home.module.css'
 import style from '../styles/Card.module.css'
+import { useState } from 'react'
 
-function Dashboard({ links }) {
-  console.log(links)
+function Dashboard({ links = [] }) {
+  const { id } = useAuthUser()
+  const [userLinks, setUserLinks] = useState(links)
+
+  const getUserLinks = async () =>
+    await Firestore.getUserLinks(id).then((links) => setUserLinks(links))
 
   return (
-    <div className={mainStyles.main}>
-      <div className={style.wrap}>
-        <Shortener />
+    <div className={mainStyles.dashboard}>
+      <div className={mainStyles.main}>
+        <Shortener cb={getUserLinks} />
         <div className={style.cardContent}>
-          {links.map((e) => (
-            <p key={e.shortUrl}>{e.url}</p>
+          {userLinks.map((e) => (
+            <div key={e.shortUrl}>
+              <p>{e.name}</p>
+              <p>{e.url}</p>
+            </div>
           ))}
         </div>
       </div>
