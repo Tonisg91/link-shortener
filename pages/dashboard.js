@@ -1,4 +1,5 @@
-import classNames from 'classnames'
+import { useState } from 'react'
+
 import {
   AuthAction,
   useAuthUser,
@@ -6,12 +7,11 @@ import {
   withAuthUserTokenSSR
 } from 'next-firebase-auth'
 
+import LinkCard from '../components/Link'
 import Shortener from '../components/Forms/Shortener'
 import Firestore from '../firebase/Firestore'
 
 import mainStyles from '../styles/Home.module.css'
-import style from '../styles/Card.module.css'
-import { useState } from 'react'
 
 function Dashboard({ links = [] }) {
   const { id } = useAuthUser()
@@ -24,12 +24,9 @@ function Dashboard({ links = [] }) {
     <div className={mainStyles.dashboard}>
       <div className={mainStyles.main}>
         <Shortener cb={getUserLinks} />
-        <div className={style.cardContent}>
-          {userLinks.map((e) => (
-            <div key={e.shortUrl}>
-              <p>{e.name}</p>
-              <p>{e.url}</p>
-            </div>
+        <div className={mainStyles.linksContainer}>
+          {userLinks.map((link) => (
+            <LinkCard key={link.shortUrl} data={link} />
           ))}
         </div>
       </div>

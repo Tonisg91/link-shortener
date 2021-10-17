@@ -7,7 +7,7 @@ class Link {
     this.url = url
     this.name = name
     this.counter = 0
-    this.createdAt = new Date()
+    this.createdAt = Date.now()
     this.createdBy = createdBy
   }
 

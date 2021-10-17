@@ -2,7 +2,6 @@ import { getAuth } from '@firebase/auth'
 import classNames from 'classnames'
 import { useState } from 'react'
 import styles from '../../styles/Home.module.css'
-import cardStyles from '../../styles/Card.module.css'
 import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
