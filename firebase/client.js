@@ -11,5 +11,3 @@ const firebaseConfig = {
 }
 
 initializeApp(firebaseConfig)
-
-// export default getFirestore(app)

@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import {
   AuthAction,
-  useAuthUser,
   withAuthUser,
   withAuthUserTokenSSR
 } from 'next-firebase-auth'
@@ -14,19 +13,26 @@ import Firestore from '../firebase/Firestore'
 import mainStyles from '../styles/Home.module.css'
 
 function Dashboard({ links = [] }) {
-  const { id } = useAuthUser()
   const [userLinks, setUserLinks] = useState(links)
 
-  const getUserLinks = async () =>
-    await Firestore.getUserLinks(id).then((links) => setUserLinks(links))
+  const addUserLink = async (data) => setUserLinks([...userLinks, data])
+  const handleDelete = (shortUrl) =>
+    Firestore.deleteLink(shortUrl).then((res) => {
+      console.log(res)
+      setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
+    })
 
   return (
     <div className={mainStyles.dashboard}>
       <div className={mainStyles.main}>
-        <Shortener cb={getUserLinks} />
+        <Shortener cb={addUserLink} />
         <div className={mainStyles.linksContainer}>
           {userLinks.map((link) => (
-            <LinkCard key={link.shortUrl} data={link} />
+            <LinkCard
+              key={link.shortUrl}
+              data={link}
+              handleDelete={handleDelete}
+            />
           ))}
         </div>
       </div>

@@ -17,17 +17,22 @@ export default function Shortener({ cb }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    postUrl(form).then((res) => res.ok && cb())
+    postUrl(form).then((res) => res && cb(res))
   }
 
-  const postUrl = (values) =>
-    fetch('/api/clipUrl', {
+  const postUrl = async (values) => {
+    const response = await fetch('/api/clipUrl', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ ...values, createdBy: currentUser.uid })
     })
+
+    if (!response.ok) return // Catch error
+
+    return await response.json()
+  }
 
   // TODO: Check if the db has that short url if typed by user
 

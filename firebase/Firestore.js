@@ -5,6 +5,7 @@ import {
   getDocs,
   getDoc,
   collection,
+  deleteDoc,
   query,
   where
 } from 'firebase/firestore/lite'
@@ -44,6 +45,10 @@ class Firestore {
     const { counter, shortUrl } = linkInstance
     const linkDoc = doc(this.db, 'links', shortUrl)
     await setDoc(linkDoc, { ...linkInstance, counter: counter + 1 })
+  }
+
+  async deleteLink(shortUrl) {
+    await deleteDoc(doc(this.db, 'links', shortUrl))
   }
 }
 
