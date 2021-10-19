@@ -8,9 +8,8 @@ const initAuth = () => {
     logoutAPIEndpoint: '/api/logout', // required
     firebaseAdminInitConfig: {
       credential: {
-        projectId: 'url-shortener-2b352',
-        clientEmail:
-          'firebase-adminsdk-ticb9@url-shortener-2b352.iam.gserviceaccount.com',
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
         privateKey: process.env.FIREBASE_PRIVATE_KEY
       }
     },
