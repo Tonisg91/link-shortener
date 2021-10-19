@@ -11,6 +11,7 @@
 .dashboard {
   width: 50vw;
   margin: 0 auto;
+  transition: width 1s;
 }
 
 .main {

@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react"
-import Firestore from "../firebase/Firestore"
+import { useEffect, useState } from 'react'
+import Firestore from '../firebase/Firestore'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 
 export default function LinkPage({ url }) {
   const [seconds, setSeconds] = useState(5)
 
-
   useEffect(() => {
-    if (seconds > 0) {
-      const countDown = setTimeout(() => setSeconds(seconds - 1), 1000)
-      return () => clearTimeout(countDown)
-    }
+    const analytics = getAnalytics()
+    logEvent(analytics, 'test')
     window.location.assign(url)
   }, [seconds, url])
-
 
   return (
     <div>
@@ -32,5 +29,5 @@ export async function getServerSideProps({ params }) {
     return { redirect: { destination: '/' } }
   }
 
-  return { props: { url: data.url }}
+  return { props: { url: data.url } }
 }

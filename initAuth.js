@@ -15,9 +15,9 @@ const initAuth = () => {
       }
     },
     firebaseClientInitConfig: {
-      apiKey: 'AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU', // required
-      authDomain: 'url-shortener-2b352.firebaseapp.com',
-      projectId: 'url-shortener-2b352'
+      apiKey: process.env.FIREBASE_APIKEY, // required
+      authDomain: process.env.FIREBASE_AUTHDOMAIN,
+      projectId: process.env.FIREBASE_PROJECT_ID
     },
     cookies: {
       name: '@urlShortener', // required
