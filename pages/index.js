@@ -8,7 +8,6 @@ import Icon from '@mdi/react'
 import { mdiLinkVariant } from '@mdi/js'
 
 import {
-  useAuthUser,
   withAuthUser,
   withAuthUserTokenSSR,
   AuthAction
@@ -16,8 +15,6 @@ import {
 import GetStartedButton from '../components/Common/GetStartedButton'
 
 function Home() {
-  const AuthUser = useAuthUser()
-
   return (
     <div className={styles.container}>
       <Head>
@@ -27,7 +24,7 @@ function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={cardStyle.wrap}>
+        <div className={classnames([cardStyle.wrap, cardStyle.dashboardCard])}>
           <div className={classnames(cardStyle.cardHeader, cardStyle.gradient)}>
             <Icon path={mdiLinkVariant} size={3} color="#fff" />
           </div>

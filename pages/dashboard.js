@@ -17,10 +17,9 @@ function Dashboard({ links = [] }) {
 
   const addUserLink = async (data) => setUserLinks([...userLinks, data])
   const handleDelete = (shortUrl) =>
-    Firestore.deleteLink(shortUrl).then((res) => {
-      console.log(res)
+    Firestore.deleteLink(shortUrl).then(() =>
       setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
-    })
+    )
 
   return (
     <div className={mainStyles.dashboard}>

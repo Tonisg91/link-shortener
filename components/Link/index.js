@@ -8,6 +8,8 @@ import Icon from '@mdi/react'
 
 import { BASE_URL } from '../../constants'
 import styles from './LinkCard.module.css'
+import cardStyles from '../../styles/Card.module.css'
+import classNames from 'classnames'
 
 function LinkCard({ data, handleDelete }) {
   const fullLink = `${BASE_URL}/${data.shortUrl}`
@@ -16,16 +18,15 @@ function LinkCard({ data, handleDelete }) {
     navigator.clipboard.writeText(fullLink).then(() => alert('Enlace copiado'))
 
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>
+    <div className={classNames([styles.container, cardStyles.wrap])}>
+      <div
+        className={classNames([
+          styles.title,
+          cardStyles.cardHeader,
+          cardStyles.gradient
+        ])}
+      >
         <h3>{data.name}</h3>
-        <Icon
-          path={mdiTrashCanOutline}
-          size={1}
-          color="red"
-          onClick={() => handleDelete(data.shortUrl)}
-          style={{ cursor: 'pointer' }}
-        />
       </div>
       <div className={styles.content}>
         <p>{data.url}</p>
@@ -46,7 +47,16 @@ function LinkCard({ data, handleDelete }) {
           <p>{data.counter}</p>
           <Icon path={mdiCursorDefaultClickOutline} size={1} />
         </div>
-        <p>{new Date(data.createdAt).toLocaleDateString('es-ES')}</p>
+        <div>
+          <p>{new Date(data.createdAt).toLocaleDateString('es-ES')}</p>
+          <Icon
+            path={mdiTrashCanOutline}
+            size={1}
+            color="red"
+            onClick={() => handleDelete(data.shortUrl)}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
       </div>
     </div>
   )
