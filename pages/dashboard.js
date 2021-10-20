@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import {
   AuthAction,
+  useAuthUser,
   withAuthUser,
   withAuthUserTokenSSR
 } from 'next-firebase-auth'
@@ -13,6 +14,7 @@ import Firestore from '../firebase/Firestore'
 import mainStyles from '../styles/Home.module.css'
 
 function Dashboard({ links = [] }) {
+  const AuthUser = useAuthUser()
   const [userLinks, setUserLinks] = useState(links)
 
   const addUserLink = async (data) => setUserLinks([...userLinks, data])
@@ -20,9 +22,18 @@ function Dashboard({ links = [] }) {
     Firestore.deleteLink(shortUrl).then(() =>
       setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
     )
+  const handleLogout = () =>
+    fetch('api/logout').then((res) => res.ok && AuthUser.signOut())
 
   return (
     <div className={mainStyles.dashboard}>
+      <nav>
+        <ul>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        </ul>
+      </nav>
       <div className={mainStyles.main}>
         <Shortener cb={addUserLink} />
         <div className={mainStyles.linksContainer}>
@@ -49,4 +60,6 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }
 })
 
-export default withAuthUser()(Dashboard)
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN
+})(Dashboard)

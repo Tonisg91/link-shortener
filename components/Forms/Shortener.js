@@ -1,11 +1,11 @@
-import { getAuth } from '@firebase/auth'
 import classNames from 'classnames'
+import { useAuthUser } from 'next-firebase-auth'
 import { useState } from 'react'
 import styles from '../../styles/Home.module.css'
 import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
-  const { currentUser } = getAuth()
+  const { currentUser } = useAuthUser()
   const [form, setForm] = useState({
     url: '',
     name: ''

@@ -1,6 +1,18 @@
 import { init } from 'next-firebase-auth'
+import { initializeApp } from 'firebase/app'
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU',
+  authDomain: 'url-shortener-2b352.firebaseapp.com',
+  projectId: 'url-shortener-2b352',
+  storageBucket: 'url-shortener-2b352.appspot.com',
+  messagingSenderId: '250794655993',
+  appId: '1:250794655993:web:6af7c3728432b81ab82228',
+  measurementId: 'G-4H7CYGPW7V'
+}
 
 const initAuth = () => {
+  initializeApp(firebaseConfig)
   init({
     authPageURL: '/auth',
     appPageURL: '/dashboard',
@@ -8,15 +20,16 @@ const initAuth = () => {
     logoutAPIEndpoint: '/api/logout', // required
     firebaseAdminInitConfig: {
       credential: {
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        projectId: 'url-shortener-2b352',
+        clientEmail:
+          'firebase-adminsdk-ticb9@url-shortener-2b352.iam.gserviceaccount.com',
         privateKey: process.env.FIREBASE_PRIVATE_KEY
       }
     },
     firebaseClientInitConfig: {
-      apiKey: process.env.FIREBASE_APIKEY, // required
-      authDomain: process.env.FIREBASE_AUTHDOMAIN,
-      projectId: process.env.FIREBASE_PROJECT_ID
+      apiKey: 'AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU', // required
+      authDomain: 'url-shortener-2b352.firebaseapp.com',
+      projectId: 'url-shortener-2b352'
     },
     cookies: {
       name: '@urlShortener', // required

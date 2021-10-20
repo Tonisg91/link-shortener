@@ -29,5 +29,5 @@ export async function getServerSideProps({ params }) {
     return { redirect: { destination: '/' } }
   }
 
-  return { props: { url: data.url } }
+  return { redirect: { destination: data.url } }
 }

@@ -1,5 +1,4 @@
-import initAuth from '../initAuth'
-import '../firebase/client'
+import initAuth from '../firebase/initAuth'
 import '../styles/globals.css'
 
 initAuth()
