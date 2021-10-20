@@ -26,3 +26,16 @@
   font-weight: 600;
   margin-right: 0.6em;
 }
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.nav ul {
+  list-style: none;
+}
+
+.nav * {
+  margin: 0.5em 0;
+}
