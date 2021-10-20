@@ -1,3 +1,5 @@
+import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+
 import propTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
@@ -5,16 +7,32 @@ import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
 import styles from '../../styles/Common.module.css'
 
 function AuthButton({ text, handleClick }) {
-  const iconHM = {
-    Google: mdiGoogle,
-    Facebook: mdiFacebook,
-    Github: mdiGithub
+  const loginWithGoogle = () => {
+    const provider = new GoogleAuthProvider()
+    signInWithPopup(getAuth(), provider).then(console.log)
   }
 
+  const buttonData = {
+    Google: {
+      icon: mdiGoogle,
+      action: loginWithGoogle
+    },
+    Facebook: {
+      icon: mdiFacebook,
+      action: loginWithGoogle
+    },
+    Github: {
+      icon: mdiGithub,
+      action: loginWithGoogle
+    }
+  }
+
+  const { action, icon } = buttonData[text]
+
   return (
-    <div className={styles.authBtn} onClick={handleClick} name={text}>
+    <div className={styles.authBtn} onClick={action} name={text}>
       <p>Login with {text}</p>
-      <Icon path={iconHM[text]} size={1} />
+      <Icon path={icon} size={1} />
     </div>
   )
 }
