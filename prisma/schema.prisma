@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Bytes @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name String
+  avatar String
+  email String @unique
+  firebaseId String
+}
+
+model Link {
+  id Bytes @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  shortUrl String @unique
+  url String
+  name String
+  count Int
+  createdBy String @db.ObjectId
+  createdAt DateTime @default(now())
+}

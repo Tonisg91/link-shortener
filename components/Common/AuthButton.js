@@ -10,10 +10,19 @@ import Icon from '@mdi/react'
 import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
 
 import styles from '../../styles/Common.module.css'
+import axios from 'axios'
 
 function AuthButton({ text }) {
   const loginWithFirebase = (provider) =>
-    signInWithPopup(getAuth(), provider).then(console.log)
+    signInWithPopup(getAuth(), provider).then(({ user }) => {
+      axios.post('api/login', {
+        name: user.displayName,
+        avatar: user.photoURL,
+        email: user.email,
+        firebaseId: user.uid
+      })
+      // prisma.user.create()
+    })
 
   const buttonData = {
     Google: {

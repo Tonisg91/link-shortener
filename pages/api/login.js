@@ -1,16 +1,13 @@
-import { setAuthCookies } from 'next-firebase-auth'
-import initAuth from '../../firebase/initAuth' // the module you created above
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
-initAuth()
-
-const handler = async (req, res) => {
+export default async function Login(req, res) {
+  console.log(req.body)
   try {
-    await setAuthCookies(req, res)
-  } catch (e) {
-    console.error(e)
-    return res.status(500).json({ error: 'Unexpected error.' })
-  }
-  return res.status(200).json({ success: true })
-}
+    const user = await prisma.user.create({
+      data: { ...req.body }
+    })
 
-export default handler
+    console.log(user)
+  } catch (error) {}
+}

@@ -1,7 +1,5 @@
-import initAuth from '../firebase/initAuth'
+import '../firebase/client'
 import '../styles/globals.css'
-
-initAuth()
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
