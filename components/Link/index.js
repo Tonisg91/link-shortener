@@ -12,6 +12,7 @@ import cardStyles from '../../styles/Card.module.css'
 import classNames from 'classnames'
 
 function LinkCard({ data, handleDelete }) {
+  console.log({ BASE_URL }, 'PROCESS', process.env.BASE_URL)
   const fullLink = `${BASE_URL}/${data.shortUrl}`
 
   const copyToClipboard = () =>
