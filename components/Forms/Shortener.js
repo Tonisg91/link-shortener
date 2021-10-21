@@ -6,7 +6,6 @@ import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
   const AuthUser = useAuthUser()
-  console.log(AuthUser)
   const [form, setForm] = useState({
     url: '',
     name: ''
