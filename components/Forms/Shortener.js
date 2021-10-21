@@ -5,7 +5,8 @@ import styles from '../../styles/Home.module.css'
 import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
-  const { currentUser } = useAuthUser()
+  const AuthUser = useAuthUser()
+  console.log(AuthUser)
   const [form, setForm] = useState({
     url: '',
     name: ''
@@ -21,17 +22,21 @@ export default function Shortener({ cb }) {
   }
 
   const postUrl = async (values) => {
-    const response = await fetch('/api/clipUrl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...values, createdBy: currentUser.uid })
-    })
+    try {
+      const response = await fetch('/api/clipUrl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...values, createdBy: AuthUser.id })
+      })
 
-    if (!response.ok) return // Catch error
+      if (!response.ok) return // Catch error
 
-    return await response.json()
+      return await response.json()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   // TODO: Check if the db has that short url if typed by user

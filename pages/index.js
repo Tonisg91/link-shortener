@@ -43,6 +43,7 @@ function Home() {
 
 export const getServerSideProps = withAuthUserTokenSSR({
   whenUnauthed: AuthAction.RENDER
+
   // whenAuthed: AuthAction.REDIRECT_TO_APP
 })()
 
