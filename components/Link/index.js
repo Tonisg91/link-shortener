@@ -12,8 +12,8 @@ import cardStyles from '../../styles/Card.module.css'
 import classNames from 'classnames'
 
 function LinkCard({ data, handleDelete }) {
-  console.log({ BASE_URL }, 'PROCESS', process.env.BASE_URL)
-  const fullLink = `${BASE_URL}/${data.shortUrl}`
+  console.log({ BASE_URL }, 'PROCESS', process.env.NEXT_PUBLIC_BASE_URL)
+  const fullLink = `link-shortener-beta.vercel.app/${data.shortUrl}`
 
   const copyToClipboard = () =>
     navigator.clipboard.writeText(fullLink).then(() => alert('Enlace copiado'))
