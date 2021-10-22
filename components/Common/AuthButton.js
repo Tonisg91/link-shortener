@@ -13,7 +13,9 @@ import styles from '../../styles/Common.module.css'
 import axios from 'axios'
 
 function AuthButton({ text }) {
-  const loginWithFirebase = (provider) =>
+  const loginWithFirebase = async (provider) => {
+    const response = await signInWithPopup(getAuth(), provider)
+
     signInWithPopup(getAuth(), provider).then(({ user }) => {
       axios.post('api/login', {
         name: user.displayName,
@@ -23,6 +25,7 @@ function AuthButton({ text }) {
       })
       // prisma.user.create()
     })
+  }
 
   const buttonData = {
     Google: {

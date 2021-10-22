@@ -25,7 +25,8 @@
       "spaced-comment": "off",
       "no-unused-vars": "warn",
       "camelcase": "warn",
-      "no-sequences": "off"
+      "no-sequences": "off",
+      "import/no-anonymous-default-export": "off"
     },
     "settings": {
       "react": {
