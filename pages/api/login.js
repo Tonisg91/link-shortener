@@ -1,5 +1,6 @@
-import prisma from '../../prisma'
+import { PrismaClient } from '.prisma/client'
 import jwt from 'jsonwebtoken'
+const prisma = new PrismaClient()
 
 const signToken = (data) =>
   jwt.sign(data, process.env.JWT_PASS, { expiresIn: '7d' })
