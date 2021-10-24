@@ -1,3 +1,4 @@
+import prisma from '../prisma'
 export default function LinkPage({ url }) {
   return (
     <div>
@@ -10,13 +11,12 @@ export default function LinkPage({ url }) {
 
 export async function getServerSideProps({ params }) {
   const { shortUrl } = params
-  // const data = await Firestore.getLink(shortUrl)
-  // TODO: Cambiar por prisma
 
-  // if (!data) {
-  //   // TODO: Return to Error page
-  //   return { redirect: { destination: '/' } }
-  // }
+  const data = await prisma.link.findUnique({ where: { shortUrl } })
 
-  return { redirect: { destination: '/' } }
+  if (!data) {
+    return { redirect: { destination: '/' } }
+  }
+
+  return { redirect: { destination: data.url } }
 }
