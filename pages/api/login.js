@@ -3,16 +3,25 @@ const prisma = new PrismaClient()
 
 export default async function Login(req, res) {
   try {
+    const { displayName, photoURL, email, uid } = req.body
+
     const hasUser = await prisma.user.findFirst({
-      where: { firebaseId: req.body.firebaseId }
+      where: { firebaseId: uid }
     })
 
     if (hasUser) {
       return res.status(200).json({ data: hasUser })
     }
 
+    const newUser = {
+      name: displayName,
+      avatar: photoURL,
+      email: email,
+      firebaseId: uid
+    }
+
     const user = await prisma.user.create({
-      data: { ...req.body }
+      data: { ...newUser }
     })
 
     return res.status(200).json({ data: user })

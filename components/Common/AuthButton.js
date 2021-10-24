@@ -11,20 +11,21 @@ import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
 
 import styles from '../../styles/Common.module.css'
 import axios from 'axios'
+import useAuth from '../../hooks/useAuth'
 
-function AuthButton({ text }) {
+const AuthButton = ({ text }) => {
+  const { login } = useAuth()
+
   const loginWithFirebase = async (provider) => {
-    const response = await signInWithPopup(getAuth(), provider)
+    try {
+      const providerResponse = await signInWithPopup(getAuth(), provider)
 
-    signInWithPopup(getAuth(), provider).then(({ user }) => {
-      axios.post('api/login', {
-        name: user.displayName,
-        avatar: user.photoURL,
-        email: user.email,
-        firebaseId: user.uid
-      })
-      // prisma.user.create()
-    })
+      const response = await axios.post('api/login', providerResponse.user)
+
+      login({ ...response.data })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const buttonData = {

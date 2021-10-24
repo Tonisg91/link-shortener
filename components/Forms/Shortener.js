@@ -1,11 +1,10 @@
 import classNames from 'classnames'
-import { useAuthUser } from 'next-firebase-auth'
 import { useState } from 'react'
 import styles from '../../styles/Home.module.css'
 import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
-  const AuthUser = useAuthUser()
+  // const AuthUser = useAuthUser()
   const [form, setForm] = useState({
     url: '',
     name: ''
@@ -22,17 +21,15 @@ export default function Shortener({ cb }) {
 
   const postUrl = async (values) => {
     try {
-      const response = await fetch('/api/clipUrl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ...values, createdBy: AuthUser.id })
-      })
-
-      if (!response.ok) return // Catch error
-
-      return await response.json()
+      // const response = await fetch('/api/clipUrl', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({ ...values, createdBy: AuthUser.id })
+      // })
+      // if (!response.ok) return // Catch error
+      // return await response.json()
     } catch (error) {
       console.error(error)
     }

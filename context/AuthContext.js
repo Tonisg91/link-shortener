@@ -1,6 +1,7 @@
-import { useRouter } from 'next/router'
-import propTypes from 'prop-types'
 import { createContext, useMemo, useReducer } from 'react'
+import { useRouter } from 'next/router'
+import { getAuth, signOut } from 'firebase/auth'
+import propTypes from 'prop-types'
 
 export const AuthContext = createContext({})
 
@@ -18,6 +19,7 @@ const reducer = (state, action) => {
       }
     }
     case 'logout': {
+      signOut(getAuth())
       return { auth: undefined, loading: false }
     }
     case 'load': {
@@ -46,12 +48,13 @@ export default function AuthContextProvider({ children }) {
   // const load = () => dispatch({ type: 'load' })
 
   const login = (user) => {
-    router.push('/dashboard')
     dispatch({ type: 'login', payload: user })
+    router.push('/dashboard')
   }
 
   const logout = () => {
     dispatch({ type: 'logout' })
+    router.push('/')
   }
 
   const authData = useMemo(
