@@ -23,7 +23,7 @@ export default function Shortener({ cb }) {
 
   const postUrl = async (values) => {
     try {
-      const response = await axios.post('/api/clipUrl', {
+      const response = await axios.post('/api/links', {
         ...values,
         createdBy: user.id
       })
@@ -31,16 +31,6 @@ export default function Shortener({ cb }) {
       if (response.status !== 200) return
 
       return response.data
-
-      // const response = await fetch('/api/clipUrl', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({ ...values, createdBy: AuthUser.id })
-      // })
-      // if (!response.ok) return // Catch error
-      // return await response.json()
     } catch (error) {
       console.error(error)
     }

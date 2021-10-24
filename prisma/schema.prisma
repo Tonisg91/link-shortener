@@ -24,7 +24,7 @@ model Link {
   shortUrl String @unique
   url String
   name String
-  counter Int
+  counter Int @default(0)
   createdBy String @db.ObjectId
   createdAt DateTime @default(now())
 }

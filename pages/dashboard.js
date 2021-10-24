@@ -17,12 +17,16 @@ export default function Dashboard() {
     if (!loading) {
       axios
         .get('api/links', { headers: { authorization: user.id } })
-        .then((res) => console.log(res))
+        .then((res) => res.status === 200 && setUserLinks(res.data))
     }
   }, [loading, user])
 
   const addUserLink = async (data) => setUserLinks([...userLinks, data])
-  const handleDelete = (shortUrl) => {}
+  const handleDelete = (id) =>
+    axios.delete(`api/links/${id}`).then(() => {
+      setUserLinks(userLinks.filter((link) => link.id !== id))
+    })
+
   // Firestore.deleteLink(shortUrl).then(() =>
   //   setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
   // )

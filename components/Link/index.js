@@ -53,7 +53,7 @@ function LinkCard({ data, handleDelete }) {
             path={mdiTrashCanOutline}
             size={1}
             color="red"
-            onClick={() => handleDelete(data.shortUrl)}
+            onClick={() => handleDelete(data.id)}
             style={{ cursor: 'pointer' }}
           />
         </div>
