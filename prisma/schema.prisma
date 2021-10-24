@@ -20,11 +20,11 @@ model User {
 }
 
 model Link {
-  id Bytes @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
   shortUrl String @unique
   url String
   name String
-  count Int
+  counter Int
   createdBy String @db.ObjectId
   createdAt DateTime @default(now())
 }

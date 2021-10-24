@@ -1,10 +1,12 @@
+import axios from 'axios'
 import classNames from 'classnames'
 import { useState } from 'react'
+import useAuth from '../../hooks/useAuth'
 import styles from '../../styles/Home.module.css'
 import TextInput from './TextInput'
 
 export default function Shortener({ cb }) {
-  // const AuthUser = useAuthUser()
+  const { user } = useAuth()
   const [form, setForm] = useState({
     url: '',
     name: ''
@@ -21,6 +23,15 @@ export default function Shortener({ cb }) {
 
   const postUrl = async (values) => {
     try {
+      const response = await axios.post('/api/clipUrl', {
+        ...values,
+        createdBy: user.id
+      })
+
+      if (response.status !== 200) return
+
+      return response.data
+
       // const response = await fetch('/api/clipUrl', {
       //   method: 'POST',
       //   headers: {

@@ -20,9 +20,9 @@ const AuthButton = ({ text }) => {
     try {
       const providerResponse = await signInWithPopup(getAuth(), provider)
 
-      const response = await axios.post('api/login', providerResponse.user)
+      const { data } = await axios.post('api/login', providerResponse.user)
 
-      login({ ...response.data })
+      login({ ...data })
     } catch (error) {
       console.error(error)
     }

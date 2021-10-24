@@ -1,7 +1,9 @@
-import { createContext, useMemo, useReducer } from 'react'
+import { createContext, useEffect, useMemo, useReducer } from 'react'
 import { useRouter } from 'next/router'
-import { getAuth, signOut } from 'firebase/auth'
 import propTypes from 'prop-types'
+import jwt from 'jsonwebtoken'
+
+const localStorageKey = '@link-user'
 
 export const AuthContext = createContext({})
 
@@ -13,13 +15,13 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'login': {
+      window.localStorage.setItem(localStorageKey, action.payload.token)
       return {
         user: action.payload,
         loading: false
       }
     }
     case 'logout': {
-      signOut(getAuth())
       return { auth: undefined, loading: false }
     }
     case 'load': {
@@ -36,19 +38,21 @@ export default function AuthContextProvider({ children }) {
 
   const { user, loading } = state
 
-  // useEffect(() => {
-  //   getUser((user) => {
-  //     if (user) {
-  //       return login(user)
-  //     }
-  //   })
-  //   load()
-  // }, [])
+  useEffect(() => {
+    const token = window.localStorage.getItem(localStorageKey)
 
-  // const load = () => dispatch({ type: 'load' })
+    if (token) {
+      return loadUser({ ...jwt.decode(token), token })
+    }
+    logout()
+  }, [])
 
-  const login = (user) => {
-    dispatch({ type: 'login', payload: user })
+  const loadUser = (data) => {
+    dispatch({ type: 'login', payload: data })
+  }
+
+  const login = (data) => {
+    dispatch({ type: 'login', payload: data })
     router.push('/dashboard')
   }
 

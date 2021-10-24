@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import LinkCard from '../components/Link'
 import Shortener from '../components/Forms/Shortener'
@@ -6,9 +6,20 @@ import Shortener from '../components/Forms/Shortener'
 import mainStyles from '../styles/Home.module.css'
 import Navbar from '../components/Common/Navbar'
 
-export default function Dashboard({ links = [] }) {
-  // const AuthUser = useAuthUser()
-  const [userLinks, setUserLinks] = useState(links)
+import useAuth from '../hooks/useAuth'
+import axios from 'axios'
+
+export default function Dashboard() {
+  const { user, loading } = useAuth()
+  const [userLinks, setUserLinks] = useState([])
+
+  useEffect(() => {
+    if (!loading) {
+      axios
+        .get('api/links', { headers: { authorization: user.id } })
+        .then((res) => console.log(res))
+    }
+  }, [loading, user])
 
   const addUserLink = async (data) => setUserLinks([...userLinks, data])
   const handleDelete = (shortUrl) => {}
