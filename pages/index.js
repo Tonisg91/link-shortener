@@ -7,14 +7,9 @@ import cardStyle from '../styles/Card.module.css'
 import Icon from '@mdi/react'
 import { mdiLinkVariant } from '@mdi/js'
 
-import {
-  withAuthUser,
-  withAuthUserTokenSSR,
-  AuthAction
-} from 'next-firebase-auth'
 import GetStartedButton from '../components/Common/GetStartedButton'
 
-function Home() {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -40,11 +35,3 @@ function Home() {
     </div>
   )
 }
-
-export const getServerSideProps = withAuthUserTokenSSR({
-  whenUnauthed: AuthAction.RENDER
-
-  // whenAuthed: AuthAction.REDIRECT_TO_APP
-})()
-
-export default withAuthUser()(Home)

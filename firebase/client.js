@@ -1,13 +1,13 @@
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDCvMj90xaF4C8vPA2cdMRJF-A9pgmbbVU',
-  authDomain: 'url-shortener-2b352.firebaseapp.com',
-  projectId: 'url-shortener-2b352',
-  storageBucket: 'url-shortener-2b352.appspot.com',
-  messagingSenderId: '250794655993',
-  appId: '1:250794655993:web:6af7c3728432b81ab82228',
-  measurementId: 'G-4H7CYGPW7V'
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MSSG_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 }
 
 initializeApp(firebaseConfig)

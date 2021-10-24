@@ -10,10 +10,23 @@ import Icon from '@mdi/react'
 import { mdiGoogle, mdiFacebook, mdiGithub } from '@mdi/js'
 
 import styles from '../../styles/Common.module.css'
+import axios from 'axios'
+import useAuth from '../../hooks/useAuth'
 
-function AuthButton({ text }) {
-  const loginWithFirebase = (provider) =>
-    signInWithPopup(getAuth(), provider).then(console.log)
+const AuthButton = ({ text }) => {
+  const { login } = useAuth()
+
+  const loginWithFirebase = async (provider) => {
+    try {
+      const providerResponse = await signInWithPopup(getAuth(), provider)
+
+      const { data } = await axios.post('api/login', providerResponse.user)
+
+      login({ ...data })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const buttonData = {
     Google: {

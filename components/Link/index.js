@@ -12,7 +12,6 @@ import cardStyles from '../../styles/Card.module.css'
 import classNames from 'classnames'
 
 function LinkCard({ data, handleDelete }) {
-  console.log({ BASE_URL }, 'PROCESS', process.env.NEXT_PUBLIC_BASE_URL)
   const fullLink = `link-shortener-beta.vercel.app/${data.shortUrl}`
 
   const copyToClipboard = () =>
@@ -54,7 +53,7 @@ function LinkCard({ data, handleDelete }) {
             path={mdiTrashCanOutline}
             size={1}
             color="red"
-            onClick={() => handleDelete(data.shortUrl)}
+            onClick={() => handleDelete(data.id)}
             style={{ cursor: 'pointer' }}
           />
         </div>

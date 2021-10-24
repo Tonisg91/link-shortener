@@ -1,10 +1,13 @@
-import initAuth from '../firebase/initAuth'
+import AuthContextProvider from '../context/AuthContext'
+import '../firebase/client'
 import '../styles/globals.css'
 
-initAuth()
-
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <AuthContextProvider>
+      <Component {...pageProps} />
+    </AuthContextProvider>
+  )
 }
 
 export default MyApp

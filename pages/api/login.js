@@ -1,16 +1,36 @@
-import { setAuthCookies } from 'next-firebase-auth'
-import initAuth from '../../firebase/initAuth' // the module you created above
+import prisma from '../../prisma'
+import jwt from 'jsonwebtoken'
 
-initAuth()
+const signToken = (data) =>
+  jwt.sign(data, process.env.JWT_PASS, { expiresIn: '7d' })
 
-const handler = async (req, res) => {
+export default async function Login(req, res) {
   try {
-    await setAuthCookies(req, res)
-  } catch (e) {
-    console.error(e)
-    return res.status(500).json({ error: 'Unexpected error.' })
-  }
-  return res.status(200).json({ success: true })
-}
+    const { displayName, photoURL, email, uid } = req.body
 
-export default handler
+    const hasUser = await prisma.user.findFirst({
+      where: { firebaseId: uid }
+    })
+
+    if (hasUser) {
+      const token = signToken(hasUser)
+      return res.status(200).json({ ...hasUser, token })
+    }
+
+    const newUser = {
+      name: displayName,
+      avatar: photoURL,
+      email: email,
+      firebaseId: uid
+    }
+
+    const user = await prisma.user.create({
+      data: { ...newUser }
+    })
+
+    return res.status(200).json({ user, token: signToken(user) })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: error.message })
+  }
+}

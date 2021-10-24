@@ -1,28 +1,35 @@
-import { useState } from 'react'
-
-import {
-  AuthAction,
-  useAuthUser,
-  withAuthUser,
-  withAuthUserTokenSSR
-} from 'next-firebase-auth'
+import { useEffect, useState } from 'react'
 
 import LinkCard from '../components/Link'
 import Shortener from '../components/Forms/Shortener'
-import Firestore from '../firebase/Firestore'
 
 import mainStyles from '../styles/Home.module.css'
 import Navbar from '../components/Common/Navbar'
 
-function Dashboard({ links = [] }) {
-  // const AuthUser = useAuthUser()
-  const [userLinks, setUserLinks] = useState(links)
+import useAuth from '../hooks/useAuth'
+import axios from 'axios'
+
+export default function Dashboard() {
+  const { user, loading } = useAuth()
+  const [userLinks, setUserLinks] = useState([])
+
+  useEffect(() => {
+    if (!loading) {
+      axios
+        .get('api/links', { headers: { authorization: user.id } })
+        .then((res) => res.status === 200 && setUserLinks(res.data))
+    }
+  }, [loading, user])
 
   const addUserLink = async (data) => setUserLinks([...userLinks, data])
-  const handleDelete = (shortUrl) =>
-    Firestore.deleteLink(shortUrl).then(() =>
-      setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
-    )
+  const handleDelete = (id) =>
+    axios.delete(`api/links/${id}`).then(() => {
+      setUserLinks(userLinks.filter((link) => link.id !== id))
+    })
+
+  // Firestore.deleteLink(shortUrl).then(() =>
+  //   setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
+  // )
   // const handleLogout = () =>
   //   fetch('api/logout').then((res) => res.ok && AuthUser.signOut())
 
@@ -44,17 +51,3 @@ function Dashboard({ links = [] }) {
     </div>
   )
 }
-
-export const getServerSideProps = withAuthUserTokenSSR({
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
-})(async (context) => {
-  const { AuthUser } = context
-  const links = await Firestore.getUserLinks(AuthUser.id)
-  return {
-    props: { links }
-  }
-})
-
-export default withAuthUser({
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN
-})(Dashboard)

@@ -1,10 +1,9 @@
-import { useAuthUser } from 'next-firebase-auth'
+import useAuth from '../../hooks/useAuth'
 import styles from '../../styles/Common.module.css'
 
 export default function Navbar() {
-  const AuthUser = useAuthUser()
-  const handleLogout = () =>
-    fetch('api/logout').then((res) => res.ok && AuthUser.signOut())
+  const { logout } = useAuth()
+  const handleLogout = () => logout()
 
   return (
     <nav className={styles.nav}>
