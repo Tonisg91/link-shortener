@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [userLinks, setUserLinks] = useState([])
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && Boolean(user)) {
       axios
         .get('api/links', { headers: { authorization: user.id } })
         .then((res) => res.status === 200 && setUserLinks(res.data))

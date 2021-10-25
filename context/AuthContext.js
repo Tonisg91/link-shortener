@@ -22,7 +22,8 @@ const reducer = (state, action) => {
       }
     }
     case 'logout': {
-      return { auth: undefined, loading: false }
+      window.localStorage.removeItem(localStorageKey)
+      return { user: undefined, loading: false }
     }
     case 'load': {
       return { ...state, loading: false }
@@ -57,8 +58,8 @@ export default function AuthContextProvider({ children }) {
   }
 
   const logout = () => {
-    dispatch({ type: 'logout' })
     router.push('/')
+    dispatch({ type: 'logout' })
   }
 
   const authData = useMemo(
