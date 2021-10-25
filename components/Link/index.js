@@ -14,8 +14,6 @@ import classNames from 'classnames'
 function LinkCard({ data, handleDelete }) {
   const fullLink = `${BASE_URL}/${data.shortUrl}`
 
-  console.log(fullLink)
-
   const copyToClipboard = () =>
     navigator.clipboard.writeText(fullLink).then(() => alert('Enlace copiado'))
 
