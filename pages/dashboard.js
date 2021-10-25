@@ -27,12 +27,6 @@ export default function Dashboard() {
       setUserLinks(userLinks.filter((link) => link.id !== id))
     })
 
-  // Firestore.deleteLink(shortUrl).then(() =>
-  //   setUserLinks(userLinks.filter((link) => link.shortUrl !== shortUrl))
-  // )
-  // const handleLogout = () =>
-  //   fetch('api/logout').then((res) => res.ok && AuthUser.signOut())
-
   return (
     <div className={mainStyles.dashboard}>
       <Navbar />
